@@ -1,11 +1,16 @@
 import PropTypes from "prop-types";
 
-function User({name,surname,age,isLoggedIn,friends,users}){
+function User({name,surname,age,isLoggedIn,friends,users,address}){
+
+  if (!isLoggedIn) {
+    return  <div>Giriş Yapmadınız.</div>
+  }
+  
     return (
       <>
         <h1>
           {" "}
-          {isLoggedIn ? `${name} ${surname} ${age} ` : "Giriş Yapmadınız"}
+          {`${name} ${surname} ${age} ` }
         </h1>
 
         {friends.map((friends) => (
@@ -32,6 +37,8 @@ function User({name,surname,age,isLoggedIn,friends,users}){
             {users.id}-{users.name}
           </p>
         ))}
+
+        {address.title}
       </>
     );
 }
@@ -41,7 +48,16 @@ User.propTypes={
   isLoggedIn:PropTypes.bool.isRequired,
   age:PropTypes.oneOfType([PropTypes.number,PropTypes.string]).isRequired,
   friends:PropTypes.array.isRequired,
-  users:PropTypes.array
+  users:PropTypes.array,
+  address:PropTypes.shape({
+    title:PropTypes.string,
+    zip:PropTypes.number
+  })
 };
+
+User.defaultProps={
+  name:"İsimsiz",
+  isLoggedIn:false
+}
 
 export default User;
