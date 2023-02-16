@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 
 function InputExample() {
 
@@ -6,6 +6,14 @@ function InputExample() {
   const onChangeInput =(e)=>{
     setForm({...form,[e.target.name]:e.target.value})
   }
+
+  debugger;
+  useEffect(() => {
+    alert(`${form.name} kere giriş yaptınız`);
+
+    return ()=>console.log("Component Unmount edildi.")
+    },[form.name]);
+
   return (
     <div>
       Name
